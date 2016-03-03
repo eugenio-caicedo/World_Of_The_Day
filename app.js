@@ -18,36 +18,45 @@ var slackClientWeb = new SlackClient.WebClient(token);
 
 //3. you need to wait for the client to fully connect before you can send messages
 //RTM_CLIENT_EVENTS.RTM_CONNECTION_OPENED   //'message'
+console.log(RTM_CLIENT_EVENTS);
+
+function findRandomWord(functionEnd){
+	//4. Buscamos la palabra y su definicion de la palabra
+	var word = randomWords({ exactly: 1 })[0];
+	wordnet.lookup(word, function(err, definitions) {
+		if(definitions){
+			var text = "";
+			definitions.forEach(function(definition) {
+				text += ("- "+capitalize(definition.meta.synsetType) + " : "+ definition.glossary + "\n");
+			});
+			console.log(word);
+			console.log(text);
+			
+			date_server_old = new Date();
+			first = false;
+			
+			functionEnd(word, text);
+		}
+		else
+			findRandomWord(functionEnd);
+	});
+}
+
 slackClientRtm.on(RTM_CLIENT_EVENTS.RTM_CONNECTION_OPENED, function (message) {
 	if(/*message.channel.id === '' &&*/ date_server_old < new Date() || first){
-		//4. Buscamos la palabra y su definicion de la palabra
-		var word_of_the_day = randomWords({ exactly: 1 })[0];
-		console.log(capitalize(word_of_the_day));
-		wordnet.lookup(word_of_the_day, function(err, definitions) {
-			if(definitions){
-				var text = "";
-				definitions.forEach(function(definition) {
-					text += ("- "+capitalize(definition.meta.synsetType) + " : "+ definition.glossary + "\n");
-				});
-				console.log(text);
-
-				//5. This will send the message 'this is a test message' to the channel identified by id 'C0CT96Q1Z' #id general = C025ZJYEE
-				//console.log("ENVIADO");
-				/*slackClientWeb.chat.postMessage('C0CT96Q1Z', null, {
-					username: 'Word Of The Day',
-					attachments: JSON.stringify([{
-						title: capitalize(word_of_the_day),
-						text: text,
-						color: "danger"
-					}])
-				});*/
-				
-				date_server_old = new Date();
-				first = false;
-			}
-			else
-				console.log(err);
+		
+		findRandomWord(function(word_of_the_day, definition){
+			//5. This will send the message 'this is a test message' to the channel identified by id 'C0CT96Q1Z' #id general = C025ZJYEE
+			/*slackClientWeb.chat.postMessage('C0CT96Q1Z', null, {
+				username: 'Word Of The Day',
+				attachments: JSON.stringify([{
+					title: capitalize(word_of_the_day),
+					text: definition,
+					color: "danger"
+				}])
+			});*/
 		});
+		
 	}
 });
 
