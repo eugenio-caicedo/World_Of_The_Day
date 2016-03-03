@@ -5,7 +5,7 @@ var wordnet = require('wordnet');
 var capitalize = require('string-capitalize');
 var CLIENT_EVENTS = SlackClient.CLIENT_EVENTS;
 var RTM_CLIENT_EVENTS = CLIENT_EVENTS.RTM;
-var token = process.env.SLACK_API_TOKEN || 'xoxp-2203644484-15987698708-23824165876-fe4f538ab5';
+var token = process.env.SLACK_API_TOKEN || '';
 var date_server_old = new Date();
 var first = true;
 
@@ -18,7 +18,7 @@ var slackClientWeb = new SlackClient.WebClient(token);
 
 //3. you need to wait for the client to fully connect before you can send messages
 //RTM_CLIENT_EVENTS.RTM_CONNECTION_OPENED   //'message'
-console.log(RTM_CLIENT_EVENTS);
+console.log(SlackClient);
 
 function findRandomWord(functionEnd){
 	//4. Buscamos la palabra y su definicion de la palabra
@@ -47,14 +47,14 @@ slackClientRtm.on(RTM_CLIENT_EVENTS.RTM_CONNECTION_OPENED, function (message) {
 		
 		findRandomWord(function(word_of_the_day, definition){
 			//5. This will send the message 'this is a test message' to the channel identified by id 'C0CT96Q1Z' #id general = C025ZJYEE
-			/*slackClientWeb.chat.postMessage('C0CT96Q1Z', null, {
+			slackClientWeb.chat.postMessage('C025ZJYEE', null, {
 				username: 'Word Of The Day',
 				attachments: JSON.stringify([{
 					title: capitalize(word_of_the_day),
 					text: definition,
 					color: "danger"
 				}])
-			});*/
+			});
 		});
 		
 	}
