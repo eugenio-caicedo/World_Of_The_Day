@@ -1,0 +1,14 @@
+{
+  "name": "word-of-the-day",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "random-words": "0.0.1",
+    "slack-client": "^2.0.4",
+    "string-capitalize": "^1.0.1",
+    "wordnet": "^0.1.2"
+  }
+}
