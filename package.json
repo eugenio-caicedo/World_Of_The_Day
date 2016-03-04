@@ -9,6 +9,7 @@
     "@slack/client": "^2.0.6",
     "random-words": "0.0.1",
     "string-capitalize": "^1.0.1",
-    "wordnet": "^0.1.2"
+    "wordnet": "^0.1.2",
+    "request": "^2.0.0"
   }
 }
