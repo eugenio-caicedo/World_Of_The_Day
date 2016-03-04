@@ -51,6 +51,7 @@ slackClientRtm.on(RTM_CLIENT_EVENTS.RAW_MESSAGE, function () {
 			//5. This will send the message 'this is a test message' to the channel identified by id 'C0CT96Q1Z' #id general = C025ZJYEE
 			slackClientWeb.chat.postMessage('C025ZJYEE', null, {
 				username: 'Word Of The Day',
+				icon_emoji: ":rocket:",
 				attachments: JSON.stringify([{
 					title: capitalize(word_of_the_day),
 					text: definition,
