@@ -39,8 +39,9 @@ function findRandomWord(functionEnd){
 }
 
 //2. Evento para cuando se conecte al servidor
-slackClientRtm.on(RTM_CLIENT_EVENTS.RTM_CONNECTION_OPENED, function () {
+slackClientRtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 	//console.log("Conectado");
+	//console.log(rtmStartData);
 });
 
 //3. Evento que se ejecuta cada vez que se envia un mensaje al servidor (concurrencia)
@@ -49,7 +50,7 @@ slackClientRtm.on(RTM_CLIENT_EVENTS.RAW_MESSAGE, function () {
 		check = false;
 		findRandomWord(function(word_of_the_day, definition){
 			//5. This will send the message 'this is a test message' to the channel identified by id 'C0CT96Q1Z' #id general = C025ZJYEE
-			slackClientWeb.chat.postMessage('C025ZJYEE', null, {
+			slackClientWeb.chat.postMessage('C0Q7W3WQK', null, {
 				username: 'Word Of The Day',
 				icon_emoji: ":rocket:",
 				attachments: JSON.stringify([{
