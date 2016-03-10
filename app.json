@@ -1,0 +1,15 @@
+{
+  "name": "word-of-the-day",
+  "success_url": "/",
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "SLACK_TOKEN": {
+      "description": "Slack bot RTM API token",
+      "required": true
+    },
+    "NODE_ENV": "staging"
+  },
+  "image": "heroku/nodejs"
+}
